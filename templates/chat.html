@@ -1,0 +1,32 @@
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+    <h2>Название чата: <span class="badge bg-secondary">{{chat.title}}</span></h2>
+    {% for message in messages %}
+    <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ message.name }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{ message.created_date.time }}</h6>
+          <p class="card-text">
+            {{ message.text }}
+          </p>
+        </div>
+      </div>
+    {% endfor %}
+
+    <form method="POST">
+      {% csrf_token %}
+      <div class="input-group mb-3">
+        <span class="input-group-text">Имя</span>
+      <input type="text" class="form-control" placeholder="Имя" aria-label="Username" name="name" required>
+      <span class="input-group-text">Текст</span>
+      <input type="text" class="form-control" placeholder="Текст" aria-label="Server" name="text" required>
+      </div>
+      {{ form.errors }}
+      <button class="btn btn-outline-secondary" type="submit">Отправить сообщение</button>
+    </form>
+    <a href="{% url 'index' %}" class="btn btn-primary">На главную</a>
+  </div>
+</body>
